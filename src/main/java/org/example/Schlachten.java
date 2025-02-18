@@ -25,12 +25,21 @@ public class Schlachten {
     public Schlachten() {
     }
 
-    public Schlachten(int id, String charakterName, String beschreibung, LocalDate datum, double kraftpunkte) {
+    public Schlachten(int id, String charakterName, Stuffe stufe, String beschreibung, LocalDate datum, double kraftpunkte) {
         this.id = id;
         this.charakterName = charakterName;
+        this.stufe = stufe;
         this.beschreibung = beschreibung;
         Datum = datum;
         this.kraftpunkte = kraftpunkte;
+    }
+
+    public Stuffe getStufe() {
+        return stufe;
+    }
+
+    public void setStufe(Stuffe stufe) {
+        this.stufe = stufe;
     }
 
     public int getId() {

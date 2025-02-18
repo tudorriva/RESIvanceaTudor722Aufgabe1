@@ -1,9 +1,7 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +20,7 @@ public class Main {
         System.out.print("Kraftpunkte: ");
         double kraftpunkte = scanner.nextDouble();
         Set<String> uniqueNames = new HashSet<>();
-        for(Schlachten schlachtObj : schlachten) {
+        for (Schlachten schlachtObj : schlachten) {
             String ninjaName = schlachtObj.getCharakterName();
             if (schlachtObj.getKraftpunkte() > kraftpunkte) {
                 uniqueNames.add(schlachtObj.getCharakterName());
@@ -31,6 +29,18 @@ public class Main {
         uniqueNames.forEach(System.out::println);
 
         // Ubung 3
+        List<Schlachten> JoninSchlachten = schlachten.stream()
+                .filter(schlachtObj -> Stuffe.Jonin.equals(schlachtObj.getStufe()))
+                .sorted(Comparator.comparing(Schlachten::getDatum).reversed())
+                .collect(Collectors.toList());
+
+        System.out.println("\nJonin Ereignisse sortiert nach Date: ");
+        for (Schlachten schlacht : JoninSchlachten) {
+            System.out.println(schlacht.getDatum() + ": " + schlacht.getCharakterName() + " - " + schlacht.getBeschreibung());
+        }
+
+        // Ubung 4
+
 
     }
 }
