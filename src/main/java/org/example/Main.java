@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,32 @@ public class Main {
         }
 
         // Ubung 4
+        Map<Stuffe, Long> stuffeSchlachten = schlachten.stream()
+                .collect(Collectors.groupingBy(Schlachten::getStufe, Collectors.counting()));
+        Map<Map.Entry<Stuffe, Long>, Double> sortedStuffeSchlachten = new HashMap<>();
+        for (Map.Entry<Stuffe, Long> entry : stuffeSchlachten.entrySet()) {
+            double totalKraftpunkte = schlachten.stream()
+                    .filter(schlacht -> schlacht.getStufe().equals(entry.getKey()))
+                    .mapToDouble(Schlachten::getKraftpunkte).sum();
+            sortedStuffeSchlachten.put(entry, totalKraftpunkte);
+        }
+
+        List<Map.Entry<Map.Entry<Stuffe, Long>, Double>> sortedStuffeSchlachtenList = new ArrayList<>(sortedStuffeSchlachten.entrySet());
+
+        sortedStuffeSchlachtenList.sort((e1, e2) -> {
+            int cmp = e2.getValue().compareTo(e1.getValue());
+            if (cmp == 0) return e1.getKey().getKey().compareTo(e2.getKey().getKey());
+            return cmp;}
+            );
+
+        try (FileWriter writer = new FileWriter("gesammtzahl.txt")) {
+            for (Map.Entry<Map.Entry<Stuffe, Long>, Double> entry : sortedStuffeSchlachtenList) {
+                writer.write(entry.getKey().getKey() + "%" + entry.getKey().getValue() + "#" + entry.getValue());
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
