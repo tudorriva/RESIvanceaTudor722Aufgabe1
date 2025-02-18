@@ -18,6 +18,7 @@ public class Main {
         }
 
         // Ubung 2
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Kraftpunkte: ");
         double kraftpunkte = scanner.nextDouble();
