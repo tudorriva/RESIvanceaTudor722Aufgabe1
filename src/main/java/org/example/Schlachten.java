@@ -3,6 +3,7 @@ package org.example;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,9 +17,13 @@ public class Schlachten {
     @XmlElement(name = "Beschreibung")
     String beschreibung;
     @XmlElement(name = "Datum")
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     LocalDate Datum;
     @XmlElement(name = "Kraftpunkte")
     double kraftpunkte;
+
+    public Schlachten() {
+    }
 
     public Schlachten(int id, String charakterName, String beschreibung, LocalDate datum, double kraftpunkte) {
         this.id = id;
